@@ -2,7 +2,7 @@ package com.play.playwrightspring.poacher.annotation;
 
 import java.lang.annotation.*;
 
-@Page
+@UIPage
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
