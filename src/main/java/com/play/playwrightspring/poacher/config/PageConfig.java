@@ -17,16 +17,18 @@ public class PageConfig {
     private Playwright playwright;
 
     @Bean
-    @ConditionalOnProperty(name = "browser", havingValue = "firefox")
-    public Page firefoxDriver(){
+    @ConditionalOnProperty(name = "browser",
+            havingValue = "firefox")
+    public Page firefoxDriver() {
         return playwright.firefox()
                 .launch(new BrowserType.LaunchOptions().setHeadless(false))
                 .newPage();
     }
 
     @Bean
-    @ConditionalOnProperty(name = "browser", havingValue = "safari")
-    public Page safariDriver(){
+    @ConditionalOnProperty(name = "browser",
+            havingValue = "safari")
+    public Page safariDriver() {
         return playwright.webkit()
                 .launch(new BrowserType.LaunchOptions().setHeadless(false))
                 .newPage();
@@ -34,7 +36,7 @@ public class PageConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public Page chromeDriver(){
+    public Page chromeDriver() {
         // Can be "msedge", "chrome-beta", "msedge-beta", "msedge-dev", etc.
         return playwright.chromium()
                 .launch(new BrowserType.LaunchOptions().setChannel(BrowserChannel.CHROME).setHeadless(false))

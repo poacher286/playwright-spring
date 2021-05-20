@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 public class PlaywrightConfig {
 
     @Bean
-    public Playwright getPlaywright(){
+    public Playwright getPlaywright() {
         return Playwright.create();
     }
 }

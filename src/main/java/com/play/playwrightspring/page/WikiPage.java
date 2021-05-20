@@ -14,13 +14,15 @@ public class WikiPage extends AbstractBasePage {
     @Value("${wiki.url}")
     private String wikiUrl;
 
+    private final String slogan = "//*[contains(@class,'slogan')]";
 
-    public void navigate(){
+
+    public void navigate() {
         page.navigate(wikiUrl);
     }
 
     @Override
-    protected boolean isDisplayed() {
-        return true;
+    public boolean isDisplayed() {
+        return page.isVisible(slogan);
     }
 }
