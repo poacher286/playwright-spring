@@ -12,6 +12,6 @@ public class WikiTest extends SpringBaseTestNG {
 
     @Test
     public void wikiHomeTest(){
-
+        wikiPage.navigate();
     }
 }
