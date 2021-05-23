@@ -1,8 +1,6 @@
 package com.play.playwrightspring.poacher.config;
 
-import com.microsoft.playwright.BrowserType;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.BrowserChannel;
 import com.play.playwrightspring.poacher.annotation.LazyConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +36,17 @@ public class PageConfig {
     @ConditionalOnMissingBean
     public Page chromeDriver() {
         // Can be "msedge", "chrome-beta", "msedge-beta", "msedge-dev", etc.
-        return playwright.chromium()
-                .launch(new BrowserType.LaunchOptions().setChannel(BrowserChannel.CHROME).setHeadless(false))
-                .newPage();
+        BrowserContext context = playwright.chromium()
+                .launch(new BrowserType.LaunchOptions()
+                        .setChannel(BrowserChannel.CHROME)
+                        .setHeadless(true)
+                )
+                .newContext();
+        context.route("**/*.{png,jpg,jpeg}", Route::abort);
+        return context.newPage();
+//        return playwright.chromium()
+//                .launch(new BrowserType.LaunchOptions().setChannel(BrowserChannel.CHROME).setHeadless(false))
+//                .newPage();
     }
 
 }
