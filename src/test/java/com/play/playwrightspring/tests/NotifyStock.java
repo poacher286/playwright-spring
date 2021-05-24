@@ -3,12 +3,12 @@ package com.play.playwrightspring.tests;
 import com.microsoft.playwright.Page;
 import com.play.playwrightspring.SpringBaseTestNG;
 import com.play.playwrightspring.page.FLipkartPage;
+import com.play.playwrightspring.poacher.utils.SoundUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-import javax.swing.*;
+import javax.sound.sampled.LineUnavailableException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,12 +27,11 @@ public class NotifyStock extends SpringBaseTestNG {
     }
 
     @Test
-    @Ignore
-    public void checkStock(){
-        for (int i=0; i<3600; i++){
-            if (fLipkartPage.buyNow()){
-                JOptionPane.showMessageDialog(null, "Available ",null, JOptionPane.INFORMATION_MESSAGE);
-                System.err.println("In Stock : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " :: " +fLipkartPage.buyNow());
+    public void checkStock() throws LineUnavailableException {
+        for (int i=0; i<1000; i++){
+            if (!fLipkartPage.notifyMe()){
+                SoundUtil.tone(1000,100, 1.0);
+                System.err.println("In Stock : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " :: " +!fLipkartPage.notifyMe());
             }
             System.out.println("Out of Stock : "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " :: " +fLipkartPage.notifyMe());
             page.reload();
@@ -44,4 +43,5 @@ public class NotifyStock extends SpringBaseTestNG {
             }
         }
     }
+
 }

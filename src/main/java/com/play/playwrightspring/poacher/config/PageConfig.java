@@ -42,7 +42,7 @@ public class PageConfig {
                         .setHeadless(true)
                 )
                 .newContext();
-        context.route("**/*.{png,jpg,jpeg}", Route::abort);
+        context.route("**/*.{png,jpg,jpeg,css}", Route::abort);
         return context.newPage();
 //        return playwright.chromium()
 //                .launch(new BrowserType.LaunchOptions().setChannel(BrowserChannel.CHROME).setHeadless(false))
