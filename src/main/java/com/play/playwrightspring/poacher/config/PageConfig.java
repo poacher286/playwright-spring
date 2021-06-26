@@ -3,45 +3,32 @@ package com.play.playwrightspring.poacher.config;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.BrowserChannel;
 import com.play.playwrightspring.poacher.annotation.LazyConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.play.playwrightspring.poacher.annotation.ThreadScopeBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
 
 @LazyConfiguration
 public class PageConfig {
 
-    @Autowired
-    private Playwright playwright;
-
-    @Bean
+    @ThreadScopeBean
     @ConditionalOnProperty(name = "browser",
             havingValue = "firefox")
     public Page firefoxDriver() {
-        return playwright.firefox()
-                .launch(new BrowserType.LaunchOptions().setHeadless(false))
-                .newPage();
+        return Playwright.create().firefox().launch(new BrowserType.LaunchOptions().setHeadless(false)).newPage();
     }
 
-    @Bean
+    @ThreadScopeBean
     @ConditionalOnProperty(name = "browser",
             havingValue = "safari")
     public Page safariDriver() {
-        return playwright.webkit()
-                .launch(new BrowserType.LaunchOptions().setHeadless(false))
-                .newPage();
+        return Playwright.create().webkit().launch(new BrowserType.LaunchOptions().setHeadless(false)).newPage();
     }
 
-    @Bean
+    @ThreadScopeBean
     @ConditionalOnMissingBean
     public Page chromeDriver() {
         // Can be "msedge", "chrome-beta", "msedge-beta", "msedge-dev", etc.
-        BrowserContext context = playwright.chromium()
-                .launch(new BrowserType.LaunchOptions()
-                        .setChannel(BrowserChannel.CHROME)
-                        .setHeadless(true)
-                )
-                .newContext();
+        BrowserContext context = Playwright.create().chromium().launch(new BrowserType.LaunchOptions().setChannel(BrowserChannel.CHROME).setHeadless(false)).newContext();
         context.route("**/*.{png,jpg,jpeg,css}", Route::abort);
         return context.newPage();
 //        return playwright.chromium()

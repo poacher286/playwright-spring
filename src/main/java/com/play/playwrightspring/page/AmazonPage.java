@@ -4,14 +4,13 @@ import com.play.playwrightspring.poacher.annotation.UIPage;
 import org.springframework.beans.factory.annotation.Value;
 
 @UIPage
-public class FLipkartPage extends ShoppingTemplate {
+public class AmazonPage extends ShoppingTemplate {
 
-
-    @Value("${flipkart.xboxx.url}")
+    @Value("${amazon.xboxx.url}")
     private String xboxXUrl;
 
-    private String flipkartTitle = "[title=Flipkart]";
-    private String notifyMe = "//button[text()='NOTIFY ME']";
+    private String amazonTitle = "//a[@href='/ref=nav_logo']";
+    private String notifyMe = "//*[@id='availability']//span[contains(text(),'unavailable')]";
 
     @Override
     public void navigate() {
@@ -26,6 +25,6 @@ public class FLipkartPage extends ShoppingTemplate {
 
     @Override
     public boolean isDisplayed() {
-        return page.isVisible(flipkartTitle);
+        return page.isVisible(amazonTitle);
     }
 }

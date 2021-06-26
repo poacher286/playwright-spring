@@ -13,7 +13,7 @@ public class WikiTest extends SpringBaseTestNG {
     private WikiPage wikiPage;
 
     @BeforeClass
-    public void navigate(){
+    public void navigate() {
         wikiPage.navigate();
     }
 
