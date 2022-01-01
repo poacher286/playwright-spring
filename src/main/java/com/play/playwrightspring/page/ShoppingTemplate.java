@@ -15,17 +15,21 @@ public abstract class ShoppingTemplate extends AbstractBasePage {
 
     public abstract boolean notifyMe();
 
+    public abstract boolean buyNow();
+
     public void checkAvailability() throws Exception {
         this.navigate();
+        Thread.sleep(1000);
         this.isDisplayed();
         for (int i = 0; i < duration; i++) {
-            if (!this.notifyMe()) {
+            if (this.buyNow()) {
                 SoundUtil.tone(1000, 100, 1.0);
-                System.err.println("In Stock : " + this.getClass().getSimpleName() + " : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " :: " + !this.notifyMe());
+                System.err.println("In Stock : " + this.getClass().getSimpleName() + " : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " :: " + this.buyNow());
             }
             System.out.println("Out of Stock : " + this.getClass().getSimpleName() + " : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " :: " + this.notifyMe());
             page.reload();
             this.isDisplayed();
+            System.gc();//for memory utilization
         }
     }
 }

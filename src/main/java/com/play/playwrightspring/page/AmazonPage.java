@@ -24,6 +24,11 @@ public class AmazonPage extends ShoppingTemplate {
     }
 
     @Override
+    public boolean buyNow() {
+        return !page.isVisible(notifyMe);
+    }
+
+    @Override
     public boolean isDisplayed() {
         return page.isVisible(amazonTitle);
     }

@@ -24,7 +24,7 @@ public class NotifyStock extends SpringBaseTestNG {
     public Object[] getPage() {
         return new Object[]{
                 fLipkartPage,
-                amazonPage
+//                amazonPage
         };
     }
 

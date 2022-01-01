@@ -12,6 +12,7 @@ public class FLipkartPage extends ShoppingTemplate {
 
     private String flipkartTitle = "[title=Flipkart]";
     private String notifyMe = "//button[text()='NOTIFY ME']";
+    private String buyNow = "//button[text()='BUY NOW']";
 
     @Override
     public void navigate() {
@@ -22,6 +23,11 @@ public class FLipkartPage extends ShoppingTemplate {
     @Override
     public boolean notifyMe() {
         return page.isVisible(notifyMe);
+    }
+
+    @Override
+    public boolean buyNow() {
+        return page.isVisible(buyNow);
     }
 
     @Override

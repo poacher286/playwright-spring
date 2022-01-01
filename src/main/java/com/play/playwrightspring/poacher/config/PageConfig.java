@@ -28,7 +28,11 @@ public class PageConfig {
     @ConditionalOnMissingBean
     public Page chromeDriver() {
         // Can be "msedge", "chrome-beta", "msedge-beta", "msedge-dev", etc.
-        BrowserContext context = Playwright.create().chromium().launch(new BrowserType.LaunchOptions().setChannel(BrowserChannel.CHROME).setHeadless(false)).newContext();
+        BrowserContext context = Playwright.create()
+                .chromium()
+                .launch(new BrowserType.LaunchOptions().setChannel(BrowserChannel.CHROME)
+                                .setHeadless(true))
+                .newContext();
         context.route("**/*.{png,jpg,jpeg,css}", Route::abort);
         return context.newPage();
 //        return playwright.chromium()
